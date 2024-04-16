@@ -1,0 +1,29 @@
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    print(start, end=' ')
+    for neighbor in graph[start] - visited:
+        dfs(graph, neighbor, visited)
+
+# Initialize an empty graph
+graph = {}
+
+# Take input for the number of edges
+edges = int(input("Enter the number of edges: "))
+
+# Take input for each edge and add it to the graph
+for _ in range(edges):
+    edge_start, edge_end = input("Enter edge (start end): ").split()
+    if edge_start not in graph:
+        graph[edge_start] = set()
+    if edge_end not in graph:
+        graph[edge_end] = set()
+    graph[edge_start].add(edge_end)
+    graph[edge_end].add(edge_start)
+
+# Take input for the starting vertex
+start_vertex = input("Enter the starting vertex: ")
+
+print("DFS traversal starting from vertex '{}'".format(start_vertex))
+dfs(graph, start_vertex)

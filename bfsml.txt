@@ -1,0 +1,33 @@
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    while queue:
+        vertex = queue.popleft()
+        if vertex not in visited:
+            visited.add(vertex)
+            print(vertex, end=' ')
+            queue.extend(graph[vertex] - visited)
+
+# Initialize an empty graph
+graph = {}
+
+# Take input for the number of edges
+edges = int(input("Enter the number of edges: "))
+
+# Take input for each edge and add it to the graph
+for _ in range(edges):
+    edge_start, edge_end = input("Enter edge (start end): ").split()
+    if edge_start not in graph:
+        graph[edge_start] = set()
+    if edge_end not in graph:
+        graph[edge_end] = set()
+    graph[edge_start].add(edge_end)
+    graph[edge_end].add(edge_start)
+
+# Take input for the starting vertex
+start_vertex = input("Enter the starting vertex: ")
+
+print("BFS traversal starting from vertex '{}'".format(start_vertex))
+bfs(graph, start_vertex)
